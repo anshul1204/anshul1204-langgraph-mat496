@@ -1,6 +1,7 @@
 # Langgraph Anshul Virmani 2210110172 MAT496
 
-**Module 1**
+<u>**Module 1**</u>
+
 
 Video 1: Motivation
 
@@ -70,7 +71,8 @@ Changes in Code: I set up in-memory checkpointing using the built-in MemorySaver
 
 
 
-**Module 2**
+<u>**Module 2**</u>
+
 
 Video 1: State Schema
 
@@ -86,3 +88,11 @@ What I Learned: This part helped me in understanding state reducers which define
 
 
 Changes in Code: I experimented with different reducer types and writing reducer functions that handle adding or merging state values. Tweaked schemas to use literals and custom state classes. Experimented with preserving parts of the state while updating others and coordinating reducer flows with the graph execution.
+
+
+Video 3: Multiple Schemas
+
+What I Learned: The video covered customizing LangGraph to use multiple state schemas simultaneously. This is useful to pass “private state” used internally between nodes without exposing it on the graph's inputs or outputs. Also learned how to define distinct input/output schemas for a graph, improving control and security.
+
+
+Changes in Code: Implemented examples showing the separation of OverallState vs PrivateState. Modified nodes to accept one schema and produce outputs conforming to another. Added input/output schema declarations to graph builders and compiled graphs testing private state passing and partial output folding.
