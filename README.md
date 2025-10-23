@@ -81,6 +81,8 @@ What I Learned: I reviewed various ways to define a LangGraph state schema, incl
 
 Changes in Code: Introduced specific typed state schemas using TypedDict with literals for constrained values. Tried dataclasses for more concise data structures, adjusting how node functions access data accordingly (attribute access for dataclasses vs dictionary keys). Created sample graphs testing each state type.
 
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/state-schema.ipynb)
+
 
 Video 2: State Reducers
 
@@ -89,6 +91,7 @@ What I Learned: This part helped me in understanding state reducers which define
 
 Changes in Code: I experimented with different reducer types and writing reducer functions that handle adding or merging state values. Tweaked schemas to use literals and custom state classes. Experimented with preserving parts of the state while updating others and coordinating reducer flows with the graph execution.
 
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/state-reducers.ipynb)
 
 Video 3: Multiple Schemas
 
@@ -98,6 +101,8 @@ What I Learned: The video covered customizing LangGraph to use multiple state sc
 Changes in Code: Implemented examples showing the separation of OverallState vs PrivateState. Modified nodes to accept one schema and produce outputs conforming to another. Added input/output schema declarations to graph builders and compiled graphs testing private state passing and partial output folding.
 
 
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/multiple-schemas.ipynb)
+
 Video 4: Trim and Filter Messages
 
 What I Learned: This video focused on advanced techniques for trimming and filtering messages in the graph state to balance memory and token usage. Various trimming strategies like keeping last N messages or filtering by criteria were tested. This is foundational for building chatbots that sustain longer sessions without hitting token limits.
@@ -105,6 +110,9 @@ What I Learned: This video focused on advanced techniques for trimming and filte
 
 Changes in Code: I wrote custom trimming functions that selectively trim conversation while preserving necessary context. Tested trimming with allow_partial mode and different max token limits. Integrated trimming logic in chatbot graphs and observed model outputs with varying trimming policies.
 
+![alt text](image-1.png)
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/trim-filter-messages.ipynb)
 
 Video 5: Chatbot Summarizing Messages and Memory
 
@@ -113,8 +121,12 @@ What I Learned: I learned how to build a chatbot that uses LLMs to produce a run
 
 Changes in Code: I modified the summarization node to include summary text in the system message fed to the model. I implemented a summarization function that extends or creates the summary based on new messages and removes older messages to limit state size. I added a conditional edge to trigger summarization only after the conversation exceeds a threshold number of messages (modified to summarizing after 5 messages instead of default). Added tracing setup for LangSmith and tested the thread-based memory persistence.
 
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/chatbot-summarization.ipynb)
+
 Video 6: Chatbot Summarizing Messages and External Memory
 
 What I Learned: This section introduced external persistent memory by incorporating external database-backed checkpointers (like SQLite). This enables chatbots to save and resume conversations across restarts and long durations, overcoming the transient state limitation.
 
 Changes in Code: Set up SQLite checkpointer and connected it to the chatbot graph for state persistence. Rebuilt the chatbot to use this persistent memory with thread IDs. Demonstrated re-loading state after kernel restart, validating memory persistence on disk. Prepared configuration for other DBs like Postgres for production use.
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/chatbot-external-memory.ipynb)
