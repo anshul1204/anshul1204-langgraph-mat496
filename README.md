@@ -1,6 +1,6 @@
 # Langgraph Anshul Virmani 2210110172 MAT496
 
-<u>**Module 1**</u>
+**Module 1**
 
 
 Video 1: Motivation
@@ -71,7 +71,7 @@ Changes in Code: I set up in-memory checkpointing using the built-in MemorySaver
 
 
 
-<u>**Module 2**</u>
+**Module 2**
 
 
 Video 1: State Schema
@@ -96,3 +96,11 @@ What I Learned: The video covered customizing LangGraph to use multiple state sc
 
 
 Changes in Code: Implemented examples showing the separation of OverallState vs PrivateState. Modified nodes to accept one schema and produce outputs conforming to another. Added input/output schema declarations to graph builders and compiled graphs testing private state passing and partial output folding.
+
+
+Video 4: Trim and Filter Messages
+
+What I Learned: This video focused on advanced techniques for trimming and filtering messages in the graph state to balance memory and token usage. Various trimming strategies like keeping last N messages or filtering by criteria were tested. This is foundational for building chatbots that sustain longer sessions without hitting token limits.
+
+
+Changes in Code: I wrote custom trimming functions that selectively trim conversation while preserving necessary context. Tested trimming with allow_partial mode and different max token limits. Integrated trimming logic in chatbot graphs and observed model outputs with varying trimming policies.
