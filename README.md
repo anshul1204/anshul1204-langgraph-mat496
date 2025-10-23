@@ -104,3 +104,11 @@ What I Learned: This video focused on advanced techniques for trimming and filte
 
 
 Changes in Code: I wrote custom trimming functions that selectively trim conversation while preserving necessary context. Tested trimming with allow_partial mode and different max token limits. Integrated trimming logic in chatbot graphs and observed model outputs with varying trimming policies.
+
+
+Video 5: Chatbot Summarizing Messages and Memory
+
+What I Learned: I learned how to build a chatbot that uses LLMs to produce a running summary of the conversation, instead of just trimming or filtering messages. This lets the chatbot retain a compressed, context-rich summary, which supports long conversations without increasing token usage or latency. I worked with a custom state extended from MessagesState that included a summary field and developed logic to generate and update the summary dynamically within the conversation flow.
+
+
+Changes in Code: I modified the summarization node to include summary text in the system message fed to the model. I implemented a summarization function that extends or creates the summary based on new messages and removes older messages to limit state size. I added a conditional edge to trigger summarization only after the conversation exceeds a threshold number of messages (modified to summarizing after 5 messages instead of default). Added tracing setup for LangSmith and tested the thread-based memory persistence.
