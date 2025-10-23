@@ -112,3 +112,9 @@ What I Learned: I learned how to build a chatbot that uses LLMs to produce a run
 
 
 Changes in Code: I modified the summarization node to include summary text in the system message fed to the model. I implemented a summarization function that extends or creates the summary based on new messages and removes older messages to limit state size. I added a conditional edge to trigger summarization only after the conversation exceeds a threshold number of messages (modified to summarizing after 5 messages instead of default). Added tracing setup for LangSmith and tested the thread-based memory persistence.
+
+Video 6: Chatbot Summarizing Messages and External Memory
+
+What I Learned: This section introduced external persistent memory by incorporating external database-backed checkpointers (like SQLite). This enables chatbots to save and resume conversations across restarts and long durations, overcoming the transient state limitation.
+
+Changes in Code: Set up SQLite checkpointer and connected it to the chatbot graph for state persistence. Rebuilt the chatbot to use this persistent memory with thread IDs. Demonstrated re-loading state after kernel restart, validating memory persistence on disk. Prepared configuration for other DBs like Postgres for production use.
