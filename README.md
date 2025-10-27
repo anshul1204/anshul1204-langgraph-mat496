@@ -165,3 +165,10 @@ What I Learned: In this video, I learned how dynamic breakpoints work in a graph
 
 
 Changes in Code: I created several breakpoint nodes in my code with custom logic using regex checks and length rules. I used interrupt exceptions to stop the execution and added code to resume it after the state is updated. I also added memory checkpoints and made the streaming updates aware of breakpoints. The graph edges and nodes were adjusted so multiple breakpoint conditions work correctly.
+
+Video 5: Time Travel
+
+What I learned: I learned about the “time travel” features in the state graph. It showed me how I can replay old runs, look at older states, and even fork new execution paths from past checkpoints. I also learned how to replace earlier messages by updating state using their message IDs instead of always adding new ones.
+
+
+Changes in Code: I expanded my graph code to include replaying and forking features. I used functions like getState, getStateHistory, and the replay methods. I also added logic to fork a new thread from a past checkpoint and overwrite states using message IDs. I improved the streaming so it shows state changes for every rewind or fork, and set up proper checkpoint management for branching.
