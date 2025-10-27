@@ -157,3 +157,11 @@ What I Learned: I understood how a human feedback step can be added inside the g
 
 
 Changes in Code: I added a human feedback node to my graph and changed the edges so the flow goes from START to human feedback and then to the assistant. I used addConditionalEdges to manage the flow after the assistant’s output. I also updated the state thread using human feedback messages, added the required imports, and enabled the graph to show its structure. My code now supports streaming updates and can react to user input during execution.
+
+
+Video 4: Dynamic Breakpoints
+
+What I Learned: In this video, I learned how dynamic breakpoints work in a graph. They can interrupt execution automatically whenever the input matches certain conditions like message length or specific patterns. I also understood how the graph can pause, let me update the state, and then continue running. It was helpful to see how this is different from normal pausing because it reacts based on rules.
+
+
+Changes in Code: I created several breakpoint nodes in my code with custom logic using regex checks and length rules. I used interrupt exceptions to stop the execution and added code to resume it after the state is updated. I also added memory checkpoints and made the streaming updates aware of breakpoints. The graph edges and nodes were adjusted so multiple breakpoint conditions work correctly.
