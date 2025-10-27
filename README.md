@@ -149,3 +149,11 @@ What I Learned: I learned the basics of breakpoints where the graph pauses at fi
 
 
 Changes in Code: I added simple breakpoint nodes to my graph and connected them using control-flow edges. I inserted a human approval node to handle pausing and resuming. I used the memory saver and state graph to manage breakpoint states and added streaming so I could see when the graph pauses and starts again. I also imported the tools needed for these advanced nodes.
+
+
+Video 3: Editing State and Human Feedback
+
+What I Learned: I understood how a human feedback step can be added inside the graph so we can jump in and update things while it’s running. I learned how the graph uses nodes like the assistant, tools, and this human feedback point, and how conditional edges help switch the flow depending on tool calls. It also taught me about saving checkpoints and handling interruptions so the state can be changed mid-execution.
+
+
+Changes in Code: I added a human feedback node to my graph and changed the edges so the flow goes from START to human feedback and then to the assistant. I used addConditionalEdges to manage the flow after the assistant’s output. I also updated the state thread using human feedback messages, added the required imports, and enabled the graph to show its structure. My code now supports streaming updates and can react to user input during execution.
