@@ -143,6 +143,9 @@ What I Learned: In this video, I learned how streaming works inside the graph so
 
 Changes in Code: I updated my graph so LLM nodes can stream tokens. I enabled streaming modes for state updates and token updates. I added logic to interrupt streaming when needed, based on events or human input. I also integrated checkpoints into the streaming flow and used RunnableConfig to control how the streaming behaves.
 
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-3/streaming-interruption.ipynb)
+
+
 Video 2: Breakpoints
 
 What I Learned: I learned the basics of breakpoints where the graph pauses at fixed points so someone can manually approve the next step. It showed how the flow stops, waits for input, and then continues. I also got to see how breakpoints fit into LangChain and LangGraph when we want more human control.
@@ -150,6 +153,9 @@ What I Learned: I learned the basics of breakpoints where the graph pauses at fi
 
 Changes in Code: I added simple breakpoint nodes to my graph and connected them using control-flow edges. I inserted a human approval node to handle pausing and resuming. I used the memory saver and state graph to manage breakpoint states and added streaming so I could see when the graph pauses and starts again. I also imported the tools needed for these advanced nodes.
 
+![alt text](image-2.png)
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-3/breakpoints.ipynb)
 
 Video 3: Editing State and Human Feedback
 
@@ -157,6 +163,10 @@ What I Learned: I understood how a human feedback step can be added inside the g
 
 
 Changes in Code: I added a human feedback node to my graph and changed the edges so the flow goes from START to human feedback and then to the assistant. I used addConditionalEdges to manage the flow after the assistant’s output. I also updated the state thread using human feedback messages, added the required imports, and enabled the graph to show its structure. My code now supports streaming updates and can react to user input during execution.
+
+![alt text](image-3.png)
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-3/edit-state-human-feedback.ipynb)
 
 
 Video 4: Dynamic Breakpoints
@@ -166,9 +176,15 @@ What I Learned: In this video, I learned how dynamic breakpoints work in a graph
 
 Changes in Code: I created several breakpoint nodes in my code with custom logic using regex checks and length rules. I used interrupt exceptions to stop the execution and added code to resume it after the state is updated. I also added memory checkpoints and made the streaming updates aware of breakpoints. The graph edges and nodes were adjusted so multiple breakpoint conditions work correctly.
 
+![alt text](image-4.png)
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-3/dynamic-breakpoints.ipynb)
+
 Video 5: Time Travel
 
 What I learned: I learned about the “time travel” features in the state graph. It showed me how I can replay old runs, look at older states, and even fork new execution paths from past checkpoints. I also learned how to replace earlier messages by updating state using their message IDs instead of always adding new ones.
 
 
 Changes in Code: I expanded my graph code to include replaying and forking features. I used functions like getState, getStateHistory, and the replay methods. I also added logic to fork a new thread from a past checkpoint and overwrite states using message IDs. I improved the streaming so it shows state changes for every rewind or fork, and set up proper checkpoint management for branching.
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-3/time-travel.ipynb)
