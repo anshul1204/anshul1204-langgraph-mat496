@@ -142,3 +142,10 @@ What I Learned: In this video, I learned how streaming works inside the graph so
 
 
 Changes in Code: I updated my graph so LLM nodes can stream tokens. I enabled streaming modes for state updates and token updates. I added logic to interrupt streaming when needed, based on events or human input. I also integrated checkpoints into the streaming flow and used RunnableConfig to control how the streaming behaves.
+
+Video 2: Breakpoints
+
+What I Learned: I learned the basics of breakpoints where the graph pauses at fixed points so someone can manually approve the next step. It showed how the flow stops, waits for input, and then continues. I also got to see how breakpoints fit into LangChain and LangGraph when we want more human control.
+
+
+Changes in Code: I added simple breakpoint nodes to my graph and connected them using control-flow edges. I inserted a human approval node to handle pausing and resuming. I used the memory saver and state graph to manage breakpoint states and added streaming so I could see when the graph pauses and starts again. I also imported the tools needed for these advanced nodes.
