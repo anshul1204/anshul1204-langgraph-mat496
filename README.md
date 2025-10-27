@@ -130,3 +130,15 @@ What I Learned: This section introduced external persistent memory by incorporat
 Changes in Code: Set up SQLite checkpointer and connected it to the chatbot graph for state persistence. Rebuilt the chatbot to use this persistent memory with thread IDs. Demonstrated re-loading state after kernel restart, validating memory persistence on disk. Prepared configuration for other DBs like Postgres for production use.
 
 [View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/chatbot-external-memory.ipynb)
+
+
+
+**Module 3**
+
+
+Video 1: Streaming
+
+What I Learned: In this video, I learned how streaming works inside the graph so the model can send partial outputs live. I also learned how streaming can be interrupted so I can change the state mid-stream and then continue the run. It showed how this helps in creating summaries or reacting while the model is still generating.
+
+
+Changes in Code: I updated my graph so LLM nodes can stream tokens. I enabled streaming modes for state updates and token updates. I added logic to interrupt streaming when needed, based on events or human input. I also integrated checkpoints into the streaming flow and used RunnableConfig to control how the streaming behaves.
