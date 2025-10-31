@@ -188,3 +188,14 @@ What I learned: I learned about the “time travel” features in the state grap
 Changes in Code: I expanded my graph code to include replaying and forking features. I used functions like getState, getStateHistory, and the replay methods. I also added logic to fork a new thread from a past checkpoint and overwrite states using message IDs. I improved the streaming so it shows state changes for every rewind or fork, and set up proper checkpoint management for branching.
 
 [View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-3/time-travel.ipynb)
+
+
+**Module 4**
+
+
+Video 1: Parallelization
+
+What I Learned: I learned how to run parts of a graph in parallel so different nodes do work at the same time and the results get combined later. The video showed a fan-out (send many tasks) and fan-in (reduce results) pattern that makes big tasks faster. I saw how state updates from multiple nodes can be collected and then reduced in a controlled order. It also explained how to use a custom reducer to merge or sort the parallel outputs.
+
+
+Changes in Code: I added a fan-out section using Send so the same task could be sent to multiple nodes in parallel, and then added a reducer that collects all their outputs and combines them using a sorting_reducer. I also created the actual parallel nodes and connected them properly to the fan-out point so everything runs together. To make sure the updates come back in the right order, I added logic for how the reducer receives and processes the list of results. I even enabled the streaming view so I could watch each node finish and see the reducer put everything together in real time.
