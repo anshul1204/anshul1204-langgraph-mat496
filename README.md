@@ -206,3 +206,11 @@ Video 2: Sub-Graphs
 What I Learned: I learned how sub-graphs let us put smaller workflows inside a bigger workflow, kind of like “mini-graphs” inside the main one. It helped me understand how complex tasks can be broken into modules that are easier to manage. I also learned how input passes into the sub-graph and how the output comes back to the parent graph. I also got to know how sub-graphs make the code cleaner when the workflow has repeated or grouped logic.
 
 Changes in Code: I created a separate sub-graph using its own builder and state logic, and added a final output node to complete it. Then I compiled that sub-graph and plugged it into the main graph as a regular node so the parent could call it. I connected the edges so the main graph flows into this sub-graph node and then continues with whatever state the sub-graph returns. I also added a small helper function to prepare or filter the input before sending it into the sub-graph, just to make sure it only receives the fields it actually needs.
+
+
+Video 3: Map Reduce
+
+What I Learned: I understood how map-reduce lets us break a big task into smaller chunks and then combine the results at the end. I learned how each part of the work can run in parallel, which makes everything faster. I also understood how LangGraph uses the Send function to automatically fan out tasks without manually writing loops. It taught me how state is passed between nodes and how the reduce step collects everything together.
+
+
+Changes in Code: I added a new State class to keep track of the subjects and jokes, along with a BestJoke model for the final output. Then I wrote the continue_to_jokes function, which uses Send to fan out each subject to the "generate_joke" node automatically. I also added two main nodes: "generate_subjects" to create joke topics using the LLM, and "generate_joke" to actually make the jokes. After that, I connected the whole flow so it moves from start → subject generation → parallel joke generation → reduction. Finally, I added a reducer step that collects all the jokes and uses the find_best_joke logic to pick the best one.
