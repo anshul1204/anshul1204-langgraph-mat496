@@ -13,7 +13,7 @@ Video 2: Simple Graph
 What I Learned: I learned how to create a basic graph structure using LangGraph, starting with defining a custom state using TypedDict, writing simple Python functions as nodes, and connecting these nodes with both normal and conditional edges. I also saw how a conditional edge can route execution differently based on logic, making the graph dynamic and interactive.
 
 
-Changes in Code: I expanded the base graph by adding extra nodes and changing the conditional logic to randomly select between more options (e.g. choosing between multiple drink nodes). The graph’s state was customized to carry a user-specific string, and the output was observed at each node during execution to verify the logic.
+Changes in Code: I expanded the base graph by adding extra nodes and changing the conditional logic to randomly select between more options (e.g. choosing between multiple drink nodes). Customized the graph’s state to carry a user-specific string, and the output was observed at each node during execution to verify the logic.
 
 [View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-1/simple-graph.ipynb)
 
@@ -198,7 +198,7 @@ Video 1: Parallelization
 What I Learned: I learned how to run parts of a graph in parallel so different nodes do work at the same time and the results get combined later. I got famalier with fan-out (send many tasks) and fan-in (reduce results) patterns that makes big tasks faster. I saw how state updates from multiple nodes can be collected and then reduced in a controlled order. It also explained how to use a custom reducer to merge or sort the parallel outputs.
 
 
-Changes in Code: I added a fan-out section using Send so the same task could be sent to multiple nodes in parallel, and then added a reducer that collects all their outputs and combines them using a sorting_reducer. I also created the actual parallel nodes and connected them properly to the fan-out point so everything runs together. To make sure the updates come back in the right order, I added logic for how the reducer receives and processes the list of results. I even enabled the streaming view so I could watch each node finish and see the reducer put everything together in real time.
+Changes in Code: I added a fan-out step using Send so the same task could go to multiple nodes at once, and then a reducer that mixes all their results using a sorting_reducer. I set up the parallel nodes and linked them properly so they all run together. I also added logic so the reducer gets the outputs in the right order. And I turned on streaming so I could actually watch each node finish and see everything combine in real time.
 
 ![alt text](image-7.png)
 
@@ -210,7 +210,7 @@ Video 2: Sub-Graphs
 
 What I Learned: I learned how sub-graphs let us put smaller workflows inside a bigger workflow, kind of like “mini-graphs” inside the main one. It helped me understand how complex tasks can be broken into modules that are easier to manage. I also learned how input passes into the sub-graph and how the output comes back to the parent graph. I also got to know how sub-graphs make the code cleaner when the workflow has repeated or grouped logic.
 
-Changes in Code: I created a separate sub-graph using its own builder and state logic, and added a final output node to complete it. Then I compiled that sub-graph and plugged it into the main graph as a regular node so the parent could call it. I connected the edges so the main graph flows into this sub-graph node and then continues with whatever state the sub-graph returns. I also added a small helper function to prepare or filter the input before sending it into the sub-graph, just to make sure it only receives the fields it actually needs.
+Changes in Code: I made a separate sub-graph with its own builder and output node, then compiled it and plugged it inside the main graph like a normal node. I connected the edges so the main graph flows into this sub-graph and continues with whatever it returns. I also added a tiny helper function to clean up the input before sending it in, just so the sub-graph only gets what it needs.
 
 [View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-4/sub-graph.ipynb)
 
@@ -220,7 +220,7 @@ Video 3: Map Reduce
 What I Learned: I understood how map-reduce lets us break a big task into smaller chunks and then combine the results at the end. I learned how each part of the work can run in parallel, which makes everything faster. I also understood how LangGraph uses the Send function to automatically fan out tasks without manually writing loops. It taught me how state is passed between nodes and how the reduce step collects everything together.
 
 
-Changes in Code: I added a new State class to keep track of the subjects and jokes, along with a BestJoke model for the final output. Then I wrote the continue_to_jokes function, which uses Send to fan out each subject to the "generate_joke" node automatically. I also added two main nodes: "generate_subjects" to create joke topics using the LLM, and "generate_joke" to actually make the jokes. After that, I connected the whole flow so it moves from start → subject generation → parallel joke generation → reduction. Atlast, I added a reducer step that collects all the jokes and uses the find_best_joke logic to pick the best one.
+Changes in Code: I added a State class to store the subjects and jokes, along with a BestJoke model for the final output. Then I made the continue_to_jokes function, which uses Send to fan out each subject to the "generate_joke" node. I created two nodes: one to generate subjects and one to generate jokes. The graph now goes from start → subjects → parallel jokes → reducer. At the end, the reducer collects all the jokes and picks the best one.
 
 ![alt text](image-6.png)
 ( Map reduce in LangSmith studio to see workflow to generate jokes )
@@ -232,7 +232,7 @@ Video 4: Research Assistant
 
 What I Learned: I learned how to build a simple research assistant that can create multiple “analysts” (workers), run searches and summarize results in parallel, and then combine their answers. It taught me how to add a human-in-the-loop step where a human can review or change the state. It explained integrating web search tools so each analyst can fetch live info. Finally, i got exposure to stream partial outputs and how to feed those into the final summarization.
 
-Changes in Code: I added logic to create multiple analyst tasks and used Send so they all run in parallel on the same topic. Each analyst now uses the Tavily web-search tool to pull information and include it in their answer. I also enabled streaming with stream_mode="values" and get_buffer_string so the analysts can return partial results while they are still working. Then I added a human-feedback update step to simulate reviewing or correcting their responses before continuing. Finally, I connected all their outputs into one aggregation node that summarizes everything into a final clean answer.
+Changes in Code: I added logic to create multiple analyst tasks and used Send so they all work in parallel on the same topic. Each analyst now uses Tavily search to grab info. I also enabled streaming so analysts can return partial results while they’re still thinking. Then I added a human-feedback step to pretend like a human is reviewing their work. Finally, all their outputs go into one node that puts everything together into a final report.
 
 ![alt text](image-5.png)
 ( Research assistant workflow in LangSmith Studio )
