@@ -195,7 +195,14 @@ Changes in Code: I expanded my graph code to include replaying and forking featu
 
 Video 1: Parallelization
 
-What I Learned: I learned how to run parts of a graph in parallel so different nodes do work at the same time and the results get combined later. The video showed a fan-out (send many tasks) and fan-in (reduce results) pattern that makes big tasks faster. I saw how state updates from multiple nodes can be collected and then reduced in a controlled order. It also explained how to use a custom reducer to merge or sort the parallel outputs.
+What I Learned: I learned how to run parts of a graph in parallel so different nodes do work at the same time and the results get combined later. I also learned how a fan-out (send many tasks) and fan-in (reduce results) pattern that makes big tasks faster. I saw how state updates from multiple nodes can be collected and then reduced in a controlled order. It also explained how to use a custom reducer to merge or sort the parallel outputs.
 
 
 Changes in Code: I added a fan-out section using Send so the same task could be sent to multiple nodes in parallel, and then added a reducer that collects all their outputs and combines them using a sorting_reducer. I also created the actual parallel nodes and connected them properly to the fan-out point so everything runs together. To make sure the updates come back in the right order, I added logic for how the reducer receives and processes the list of results. I even enabled the streaming view so I could watch each node finish and see the reducer put everything together in real time.
+
+
+Video 2: Sub-Graphs
+
+What I Learned: I learned how sub-graphs let us put smaller workflows inside a bigger workflow, kind of like “mini-graphs” inside the main one. It helped me understand how complex tasks can be broken into modules that are easier to manage. I also learned how input passes into the sub-graph and how the output comes back to the parent graph. I also got to know how sub-graphs make the code cleaner when the workflow has repeated or grouped logic.
+
+Changes in Code: I created a separate sub-graph using its own builder and state logic, and added a final output node to complete it. Then I compiled that sub-graph and plugged it into the main graph as a regular node so the parent could call it. I connected the edges so the main graph flows into this sub-graph node and then continues with whatever state the sub-graph returns. I also added a small helper function to prepare or filter the input before sending it into the sub-graph, just to make sure it only receives the fields it actually needs.
