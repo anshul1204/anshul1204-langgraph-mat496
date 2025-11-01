@@ -195,7 +195,7 @@ Changes in Code: I expanded my graph code to include replaying and forking featu
 
 Video 1: Parallelization
 
-What I Learned: I learned how to run parts of a graph in parallel so different nodes do work at the same time and the results get combined later. I also learned how a fan-out (send many tasks) and fan-in (reduce results) pattern that makes big tasks faster. I saw how state updates from multiple nodes can be collected and then reduced in a controlled order. It also explained how to use a custom reducer to merge or sort the parallel outputs.
+What I Learned: I learned how to run parts of a graph in parallel so different nodes do work at the same time and the results get combined later. I got famalier with fan-out (send many tasks) and fan-in (reduce results) patterns that makes big tasks faster. I saw how state updates from multiple nodes can be collected and then reduced in a controlled order. It also explained how to use a custom reducer to merge or sort the parallel outputs.
 
 
 Changes in Code: I added a fan-out section using Send so the same task could be sent to multiple nodes in parallel, and then added a reducer that collects all their outputs and combines them using a sorting_reducer. I also created the actual parallel nodes and connected them properly to the fan-out point so everything runs together. To make sure the updates come back in the right order, I added logic for how the reducer receives and processes the list of results. I even enabled the streaming view so I could watch each node finish and see the reducer put everything together in real time.
