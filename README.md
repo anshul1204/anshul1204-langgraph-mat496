@@ -13,7 +13,7 @@ Video 2: Simple Graph
 What I Learned: I learned how to create a basic graph structure using LangGraph, starting with defining a custom state using TypedDict, writing simple Python functions as nodes, and connecting these nodes with both normal and conditional edges. I also saw how a conditional edge can route execution differently based on logic, making the graph dynamic and interactive.
 
 
-Changes in Code: I expanded the base graph by adding extra nodes and changing the conditional logic to randomly select between more options (e.g. choosing between multiple drink nodes). The graph’s state was customized to carry a user-specific string, and the output was observed at each node during execution to verify the logic. Being comfortable with state schemas and node function signatures also helped in tweaking the sequence and logic of the graph flow.​
+Changes in Code: I expanded the base graph by adding extra nodes and changing the conditional logic to randomly select between more options (e.g. choosing between multiple drink nodes). The graph’s state was customized to carry a user-specific string, and the output was observed at each node during execution to verify the logic.
 
 [View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-1/simple-graph.ipynb)
 
@@ -54,7 +54,7 @@ Video 6: Agent
 What I Learned: Here I built a general agent architecture based on the ReAct design, where the LLM model can loop between reasoning, acting (via tool calls), and observing results until deciding to give a final answer. This modular approach supports complex sequences and multiple tool decisions before producing a direct output.
 
 
-Changes in Code: I wrote arithmetic tools (add, multiply, divide etc.) and extended the agent to handle binary and two’s complement operations. I updated the tool list and LLM bindings, and tested flows where the agent had to chain tool calls (e.g. do math, convert to binary, handle two’s complement logic, and then convert back to decimal). The graph flow was enhanced with debugging statements and more robust node-to-node connections to support advanced tool chaining.
+Changes in Code: I wrote arithmetic tools (add, multiply, divide etc.) and extended the agent to handle binary and two’s complement operations. I updated the tool list and LLM bindings, and tested flows where the agent had to chain tool calls (e.g. do math, convert to binary, handle two’s complement logic, and then convert back to decimal). 
 
 [View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-1/agent.ipynb)
 
@@ -119,7 +119,7 @@ Video 5: Chatbot Summarizing Messages and Memory
 What I Learned: I learned how to build a chatbot that uses LLMs to produce a running summary of the conversation, instead of just trimming or filtering messages. This lets the chatbot retain a compressed, context-rich summary, which supports long conversations without increasing token usage or latency. I worked with a custom state extended from MessagesState that included a summary field and developed logic to generate and update the summary dynamically within the conversation flow.
 
 
-Changes in Code: I modified the summarization node to include summary text in the system message fed to the model. I implemented a summarization function that extends or creates the summary based on new messages and removes older messages to limit state size. I added a conditional edge to trigger summarization only after the conversation exceeds a threshold number of messages (modified to summarizing after 5 messages instead of default). Added tracing setup for LangSmith and tested the thread-based memory persistence.
+Changes in Code: I modified the summarization node to include summary text in the system message fed to the model. I implemented a summarization function that extends or creates the summary based on new messages and removes older messages to limit state size. I added a conditional edge to trigger summarization only after the conversation exceeds a threshold number of messages (modified to summarizing after 5 messages). Added tracing setup for LangSmith and tested the thread-based memory persistence.
 
 [View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-2/chatbot-summarization.ipynb)
 
@@ -174,7 +174,7 @@ Video 4: Dynamic Breakpoints
 What I Learned: In this video, I learned how dynamic breakpoints work in a graph. They can interrupt execution automatically whenever the input matches certain conditions like message length or specific patterns. I also understood how the graph can pause, let me update the state, and then continue running. It was helpful to see how this is different from normal pausing because it reacts based on rules.
 
 
-Changes in Code: I created several breakpoint nodes in my code with custom logic using regex checks and length rules. I used interrupt exceptions to stop the execution and added code to resume it after the state is updated. I also added memory checkpoints and made the streaming updates aware of breakpoints. The graph edges and nodes were adjusted so multiple breakpoint conditions work correctly.
+Changes in Code: I created several breakpoint nodes in my code with custom logic using regex checks and length rules. I used interrupt exceptions to stop the execution and added code to resume it after the state is updated. I also added memory checkpoints and made the streaming updates aware of breakpoints. Adjusted graph edges and nodes so that multiple breakpoint conditions work correctly.
 
 ![alt text](image-4.png)
 
@@ -200,12 +200,19 @@ What I Learned: I learned how to run parts of a graph in parallel so different n
 
 Changes in Code: I added a fan-out section using Send so the same task could be sent to multiple nodes in parallel, and then added a reducer that collects all their outputs and combines them using a sorting_reducer. I also created the actual parallel nodes and connected them properly to the fan-out point so everything runs together. To make sure the updates come back in the right order, I added logic for how the reducer receives and processes the list of results. I even enabled the streaming view so I could watch each node finish and see the reducer put everything together in real time.
 
+![alt text](image-7.png)
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-4/parallelization.ipynb)
+
+
 
 Video 2: Sub-Graphs
 
 What I Learned: I learned how sub-graphs let us put smaller workflows inside a bigger workflow, kind of like “mini-graphs” inside the main one. It helped me understand how complex tasks can be broken into modules that are easier to manage. I also learned how input passes into the sub-graph and how the output comes back to the parent graph. I also got to know how sub-graphs make the code cleaner when the workflow has repeated or grouped logic.
 
 Changes in Code: I created a separate sub-graph using its own builder and state logic, and added a final output node to complete it. Then I compiled that sub-graph and plugged it into the main graph as a regular node so the parent could call it. I connected the edges so the main graph flows into this sub-graph node and then continues with whatever state the sub-graph returns. I also added a small helper function to prepare or filter the input before sending it into the sub-graph, just to make sure it only receives the fields it actually needs.
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-4/sub-graph.ipynb)
 
 
 Video 3: Map Reduce
@@ -215,9 +222,19 @@ What I Learned: I understood how map-reduce lets us break a big task into smalle
 
 Changes in Code: I added a new State class to keep track of the subjects and jokes, along with a BestJoke model for the final output. Then I wrote the continue_to_jokes function, which uses Send to fan out each subject to the "generate_joke" node automatically. I also added two main nodes: "generate_subjects" to create joke topics using the LLM, and "generate_joke" to actually make the jokes. After that, I connected the whole flow so it moves from start → subject generation → parallel joke generation → reduction. Atlast, I added a reducer step that collects all the jokes and uses the find_best_joke logic to pick the best one.
 
+![alt text](image-6.png)
+( Map reduce in LangSmith studio to see workflow to generate jokes )
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-4/map-reduce.ipynb)
+
 
 Video 4: Research Assistant
 
 What I Learned: I learned how to build a simple research assistant that can create multiple “analysts” (workers), run searches and summarize results in parallel, and then combine their answers. It taught me how to add a human-in-the-loop step where a human can review or change the state. It explained integrating web search tools so each analyst can fetch live info. Finally, i got exposure to stream partial outputs and how to feed those into the final summarization.
 
 Changes in Code: I added logic to create multiple analyst tasks and used Send so they all run in parallel on the same topic. Each analyst now uses the Tavily web-search tool to pull information and include it in their answer. I also enabled streaming with stream_mode="values" and get_buffer_string so the analysts can return partial results while they are still working. Then I added a human-feedback update step to simulate reviewing or correcting their responses before continuing. Finally, I connected all their outputs into one aggregation node that summarizes everything into a final clean answer.
+
+![alt text](image-5.png)
+( Research assistant workflow in LangSmith Studio )
+
+[View Notebook](https://github.com/anshul1204/anshul1204-langgraph-mat496/blob/main/module-4/research-assistant.ipynb)
